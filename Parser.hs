@@ -21,12 +21,17 @@ typeexpr = try (Function <$> factor <*> to <*> typeexpr)
 typename :: Parser TypeName
 typename = try (TypeWithModifier <$> name <*> typename)
        <|> (TypeName <$> name)
+       <|> try (TypeWithTNCons <$> tnfactor <*> typename)
+       <|> (TNCons <$> tnfactor)
 
 factor :: Parser Factor
 factor = try (SignatureFactor <$> lpar <*> signature_ <*> rpar)
      <|> try (TypeExprFactor <$> lpar <*> typeexpr <*> rpar)
      <|> (TypeNameFactor <$> lpar <*> typename <*> rpar)
      <|> (JustTypeName <$> typename)
+
+tnfactor :: Parser TNFactor
+tnfactor = TNFactor <$> lpar <*> typename <*> rpar
 
 name :: Parser Name
 name = spaces *> many1 (noneOf " -=():,>") <* spaces
@@ -45,3 +50,7 @@ lpar = LPar <$ (spaces *> string "(" <* spaces)
 
 rpar :: Parser RPar
 rpar = RPar <$ (spaces *> string ")" <* spaces)
+
+s = Signature "func" Colon (Function (JustTypeName (TypeName "a")) To (Function (JustTypeName (TypeName "a")) To (Single (JustTypeName (TypeName "a")))))
+
+t = Signature "func" Colon (Function (TypeExprFactor LPar (Function (JustTypeName (TypeName "Nat")) To (Single (JustTypeName (TypeName "Nat")))) RPar) To (Function (JustTypeName (TypeName "a")) To (Single (JustTypeName (TypeName "a")))))

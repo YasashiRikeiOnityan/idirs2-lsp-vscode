@@ -22,10 +22,15 @@ data TypeExpr = Single Factor
 
 data TypeName = TypeName Name
               | TypeWithModifier Name TypeName
+              | TNCons TNFactor
+              | TypeWithTNCons TNFactor TypeName
     deriving (Show, Eq)
 
 data Factor = SignatureFactor LPar Signature RPar
             | TypeExprFactor LPar TypeExpr RPar
             | TypeNameFactor LPar TypeName RPar
             | JustTypeName TypeName
+    deriving (Show, Eq)
+
+data TNFactor = TNFactor LPar TypeName RPar
     deriving (Show, Eq)
