@@ -4,6 +4,9 @@ import AST
 import Text.Parsec ( noneOf, spaces, string, eof, many1, (<|>), try, parseTest )
 import Text.ParserCombinators.Parsec ( Parser )
 
+test :: String -> IO ()
+test = parseTest parse
+
 parse :: Parser Signature
 parse = signature_ <* eof
 
