@@ -1,1 +1,1 @@
-# idirs2-lsp-vscode
+# idirs2-lsp-vscode-plus
