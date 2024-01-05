@@ -12,7 +12,7 @@ data LPar = LPar deriving (Show, Eq)
 
 data RPar = RPar deriving (Show, Eq)
 
-data Signature = Signature Name Colon TypeExpr ()
+data Signature = Signature Name Colon TypeExpr
     deriving (Show, Eq)
 
 data TypeExpr = Single Factor
@@ -26,5 +26,6 @@ data TypeName = TypeName Name
 
 data Factor = SignatureFactor LPar Signature RPar
             | TypeExprFactor LPar TypeExpr RPar
-            | TypeNameFactor TypeName
+            | TypeNameFactor LPar TypeName RPar
+            | JustTypeName TypeName
     deriving (Show, Eq)

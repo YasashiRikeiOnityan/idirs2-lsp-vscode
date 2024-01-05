@@ -4,8 +4,11 @@ import AST
 import Text.Parsec ( noneOf, spaces, string, eof, many1, (<|>), try, parseTest )
 import Text.ParserCombinators.Parsec ( Parser )
 
+parse :: Parser Signature
+parse = signature_ <* eof
+
 signature_ :: Parser Signature
-signature_ = Signature <$> name <*> colon <*> typeexpr <*> eof
+signature_ = Signature <$> name <*> colon <*> typeexpr
 
 typeexpr :: Parser TypeExpr
 typeexpr = try (Function <$> factor <*> to <*> typeexpr)
@@ -18,8 +21,9 @@ typename = try (TypeWithModifier <$> name <*> typename)
 
 factor :: Parser Factor
 factor = try (SignatureFactor <$> lpar <*> signature_ <*> rpar)
-     <|> (TypeExprFactor <$> lpar <*> typeexpr <*> rpar)
-     <|> (TypeNameFactor <$> typename)
+     <|> try (TypeExprFactor <$> lpar <*> typeexpr <*> rpar)
+     <|> (TypeNameFactor <$> lpar <*> typename <*> rpar)
+     <|> (JustTypeName <$> typename)
 
 name :: Parser Name
 name = spaces *> many1 (noneOf " -=():,>") <* spaces
