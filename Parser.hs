@@ -1,14 +1,16 @@
 module Parser where
 
 import AST
-import Text.Parsec ( noneOf, spaces, string, eof, many1, (<|>), try, parseTest )
+import Text.Parsec ( noneOf, spaces, string, eof, many1, (<|>), try, parseTest, parse )
 import Text.ParserCombinators.Parsec ( Parser )
 
-test :: String -> IO ()
-test = parseTest parse
+-- parse :: String -> IO ()
+-- parse =  parseTest (signature_ <* eof)
 
-parse :: Parser Signature
-parse = signature_ <* eof
+parse2signature :: String -> Signature
+parse2signature s = case parse (signature_ <* eof) "" s of
+     Left err -> error $ "failed"
+     Right x -> x
 
 signature_ :: Parser Signature
 signature_ = Signature <$> name <*> colon <*> typeexpr
