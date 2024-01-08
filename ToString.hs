@@ -24,5 +24,3 @@ typename2str (TypeWithTNCons tnf tn) = tnfactor2str tnf ++ " " ++ typename2str t
 
 tnfactor2str :: TNFactor -> String
 tnfactor2str (TNFactor LPar tn RPar) = "(" ++ typename2str tn ++ ")"
-
-toStrtest = signature2str $ Signature "insElm" Colon (Constrained (TypeExprFactor LPar (Single (JustTypeName (TypeWithModifier "Ord" (TypeName "a")))) RPar) RightArrow (Function (JustTypeName (TypeName "a")) To (Function (JustTypeName (TypeWithModifier "Vect" (TypeWithModifier "len" (TypeName "a")))) To (Single (JustTypeName (TypeWithModifier "Vect" (TypeWithTNCons (TNFactor LPar (TypeWithModifier "S" (TypeName "len")) RPar) (TypeName "a"))))))))

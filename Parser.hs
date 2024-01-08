@@ -4,9 +4,6 @@ import AST
 import Text.Parsec ( noneOf, spaces, string, eof, many1, (<|>), try, parseTest, parse )
 import Text.ParserCombinators.Parsec ( Parser )
 
--- parse :: String -> IO ()
--- parse =  parseTest (signature_ <* eof)
-
 parse2signature :: String -> Signature
 parse2signature s = case parse (signature_ <* eof) "" s of
      Left err -> error $ "failed"
@@ -52,7 +49,3 @@ lpar = LPar <$ (spaces *> string "(" <* spaces)
 
 rpar :: Parser RPar
 rpar = RPar <$ (spaces *> string ")" <* spaces)
-
-s = Signature "func" Colon (Function (JustTypeName (TypeName "a")) To (Function (JustTypeName (TypeName "a")) To (Single (JustTypeName (TypeName "a")))))
-
-t = Signature "func" Colon (Function (TypeExprFactor LPar (Function (JustTypeName (TypeName "Nat")) To (Single (JustTypeName (TypeName "Nat")))) RPar) To (Function (JustTypeName (TypeName "a")) To (Single (JustTypeName (TypeName "a")))))

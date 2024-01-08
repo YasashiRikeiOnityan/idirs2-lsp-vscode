@@ -3,7 +3,6 @@ module Unification where
 import AST
 import Parser
 
-
 makeName :: Name -> Name -> Name
 makeName x y = x ++ " " ++ y
 
