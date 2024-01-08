@@ -9,7 +9,8 @@ idris2-lsp-vscodeを拡張したツールの開発を行う。
 ## 実行例
 
 ```
-$ ghc Mainn.hs
+$ ghc Main.hs
 $ ./Main "f1 : a -> b -> a" "f2 : c -> d"
-"f1 f2 : b -> (c -> d)"
 ```
+
+結果：`"f1 f2 : b -> (c -> d)"`
