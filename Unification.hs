@@ -16,6 +16,8 @@ unifySignature (Signature x Colon (Function f1 To te1)) (Signature y Colon (Func
     = Signature (makeName x y) Colon te1
 unifySignature (Signature x Colon (Constrained f1 RightArrow (Function f2 To te))) (Signature y Colon (Single f3))
     = Signature (makeName x y) Colon te
+unifySignature (Signature x Colon (Constrained f1 RightArrow (Function f2 To te1))) (Signature y Colon (Function f3 To te2)) 
+    = Signature (makeName x y) Colon te1
 
 unifyTest = unifySignatures [Signature "add" Colon (Function (JustTypeName (TypeName "Nat")) To (Function (JustTypeName (TypeName "Nat")) To (Single (JustTypeName (TypeName "Nat"))))),
                              Signature "x" Colon (Single (JustTypeName (TypeName "Nat")))]

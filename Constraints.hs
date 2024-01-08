@@ -16,7 +16,9 @@ analyzeConstraintsTypeExpr c (Single f1) (Constrained _ RightArrow (Single f2)) 
 analyzeConstraintsTypeExpr c (Single f1) (Constrained _ RightArrow (Function f2 To _)) = analyzeConstraintsFactor c f1 f2
 analyzeConstraintsTypeExpr c (Function f1 To _) (Single f2) = analyzeConstraintsFactor c f1 f2
 analyzeConstraintsTypeExpr c (Function f1 To _) (Function f2 To te) = analyzeConstraintsFactor c f1 (TypeExprFactor LPar (Function f2 To te) RPar)
-analyzeConstraintsTypeExpr c (Constrained f1 RightArrow _) (Single f2) = analyzeConstraintsFactor c f1 f2
+analyzeConstraintsTypeExpr c (Constrained _ RightArrow (Single f1)) (Single f2) = analyzeConstraintsFactor c f1 f2
+analyzeConstraintsTypeExpr c (Constrained _ RightArrow (Function f1 To _)) (Single f2) = analyzeConstraintsFactor c f1 (TypeExprFactor LPar (Single f2) RPar)
+analyzeConstraintsTypeExpr c (Constrained _ RightArrow (Function f1 To _)) (Function f2 To te) = analyzeConstraintsFactor c f1 (TypeExprFactor LPar (Function f2 To te) RPar)
 
 analyzeConstraintsFactor :: Constraints -> Factor -> Factor -> Constraints
 analyzeConstraintsFactor c f1 f2
