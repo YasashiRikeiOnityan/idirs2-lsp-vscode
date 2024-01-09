@@ -1,7 +1,6 @@
 module Unification where
 
 import AST
-import Parser
 
 makeName :: Name -> Name -> Name
 makeName x y = x ++ " " ++ y
@@ -18,6 +17,3 @@ unifySignature (Signature x Colon (Constrained f1 RightArrow (Function f2 To te)
     = Signature (makeName x y) Colon te
 unifySignature (Signature x Colon (Constrained f1 RightArrow (Function f2 To te1))) (Signature y Colon (Function f3 To te2)) 
     = Signature (makeName x y) Colon te1
-
-unifyTest = unifySignatures [Signature "add" Colon (Function (JustTypeName (TypeName "Nat")) To (Function (JustTypeName (TypeName "Nat")) To (Single (JustTypeName (TypeName "Nat"))))),
-                             Signature "x" Colon (Single (JustTypeName (TypeName "Nat")))]
