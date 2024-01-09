@@ -1,7 +1,6 @@
 module Constraints where
 
 import AST
-import Parser
 import Unification
 
 type Constraints = [(Factor, Factor)]
