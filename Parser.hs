@@ -6,7 +6,7 @@ import Text.ParserCombinators.Parsec ( Parser )
 
 parse2signature :: String -> Signature
 parse2signature s = case parse (signature_ <* eof) "" s of
-     Left err -> error $ "failed"
+     Left err -> error "failed"
      Right x -> x
 
 signature_ :: Parser Signature
