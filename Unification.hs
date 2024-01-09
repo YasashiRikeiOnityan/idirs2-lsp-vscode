@@ -9,6 +9,8 @@ unifySignatures :: [Signature] -> Signature
 unifySignatures = foldl1 unifySignature
 
 unifySignature :: Signature -> Signature -> Signature
+unifySignature (Signature x Colon (Single _)) _ 
+    = error "too many arguments"
 unifySignature (Signature x Colon (Function f1 To te)) (Signature y Colon (Single f2)) 
     = Signature (makeName x y) Colon te
 unifySignature (Signature x Colon (Function f1 To te1)) (Signature y Colon (Function f2 To te2)) 
