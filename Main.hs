@@ -14,4 +14,3 @@ main = do input <- getArgs
           let constraints = getConstraints [] sigs
           let output = signature2str $ applyConstrainsSignature constraints unified
           print output
-         
